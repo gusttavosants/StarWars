@@ -1,0 +1,14 @@
+runtime: python39
+
+env: standard
+
+entrypoint: gunicorn -b :$PORT src.presentation.main:app
+
+env_variables:
+  ENVIRONMENT: "production"
+  DEBUG: "False"
+  LOG_LEVEL: "INFO"
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 10
