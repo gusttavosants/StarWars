@@ -1,0 +1,254 @@
+swagger: '2.0'
+info:
+  title: Star Wars API
+  description: API para explorar dados de Star Wars
+  version: 1.0.0
+host: starwars-api.example.com
+basePath: /api
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: Authorization
+    in: header
+    x-google-audiences: starwars-api
+
+security:
+  - api_key: []
+
+paths:
+  /characters:
+    get:
+      summary: Listar personagens
+      operationId: list_characters
+      parameters:
+        - name: page
+          in: query
+          type: integer
+          default: 1
+        - name: page_size
+          in: query
+          type: integer
+          default: 10
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_order
+          in: query
+          type: string
+          enum: [asc, desc]
+        - name: search
+          in: query
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+
+  /characters/{character_id}:
+    get:
+      summary: Obter personagem por ID
+      operationId: get_character
+      parameters:
+        - name: character_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+
+  /characters/search/{query}:
+    get:
+      summary: Buscar personagens
+      operationId: search_characters
+      parameters:
+        - name: query
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        400:
+          description: Bad Request
+        401:
+          description: Unauthorized
+
+  /planets:
+    get:
+      summary: Listar planetas
+      operationId: list_planets
+      parameters:
+        - name: page
+          in: query
+          type: integer
+          default: 1
+        - name: page_size
+          in: query
+          type: integer
+          default: 10
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_order
+          in: query
+          type: string
+          enum: [asc, desc]
+        - name: search
+          in: query
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+
+  /planets/{planet_id}:
+    get:
+      summary: Obter planeta por ID
+      operationId: get_planet
+      parameters:
+        - name: planet_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+
+  /starships:
+    get:
+      summary: Listar naves
+      operationId: list_starships
+      parameters:
+        - name: page
+          in: query
+          type: integer
+          default: 1
+        - name: page_size
+          in: query
+          type: integer
+          default: 10
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_order
+          in: query
+          type: string
+          enum: [asc, desc]
+        - name: search
+          in: query
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+
+  /starships/{starship_id}:
+    get:
+      summary: Obter nave por ID
+      operationId: get_starship
+      parameters:
+        - name: starship_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+
+  /films:
+    get:
+      summary: Listar filmes
+      operationId: list_films
+      parameters:
+        - name: page
+          in: query
+          type: integer
+          default: 1
+        - name: page_size
+          in: query
+          type: integer
+          default: 10
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_order
+          in: query
+          type: string
+          enum: [asc, desc]
+        - name: search
+          in: query
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+
+  /films/{film_id}:
+    get:
+      summary: Obter filme por ID
+      operationId: get_film
+      parameters:
+        - name: film_id
+          in: path
+          required: true
+          type: string
+      x-google-backend:
+        address: https://REGION-PROJECT_ID.cloudfunctions.net/starwars-api
+        disable_auth: false
+      responses:
+        200:
+          description: Success
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
