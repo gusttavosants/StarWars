@@ -1,0 +1,42 @@
+# This file specifies files that should *not* be uploaded to Google Cloud
+# using `gcloud` commands.
+
+# If you would like to add files to the ignore list, add them below.
+# For more information, run:
+#   $ gcloud topic gcloudignore
+#
+
+.gcloudignore
+# If you would like to exclude files from the Cloud Build output, add them here
+# (see https://cloud.google.com/build/docs/configuring-builds/substitute-variable-values)
+.git
+.gitignore
+.pytest_cache
+.coverage
+htmlcov/
+__pycache__
+*.pyc
+.venv
+venv/
+env/
+.env
+.env.local
+.env.*.local
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+node_modules/
+.mypy_cache/
+.hypothesis/
+*.egg-info/
+dist/
+build/
+.tox/
+docs/
+tests/
+README.md
+LICENSE

@@ -1,0 +1,57 @@
+steps:
+  # Step 1: Instalar dependências
+  - name: 'python:3.9'
+    entrypoint: pip
+    args: ['install', '-r', 'requirements.txt']
+
+  # Step 2: Executar testes
+  - name: 'python:3.9'
+    entrypoint: pytest
+    args: ['tests/', '--cov=src', '--cov-report=term-missing']
+    env:
+      - 'PYTHONPATH=/workspace'
+
+  # Step 3: Linting com flake8
+  - name: 'python:3.9'
+    entrypoint: flake8
+    args: ['src/', 'tests/', '--max-line-length=100']
+
+  # Step 4: Type checking com mypy
+  - name: 'python:3.9'
+    entrypoint: mypy
+    args: ['src/', '--ignore-missing-imports']
+
+  # Step 5: Deploy para Cloud Functions
+  - name: 'gcr.io/cloud-builders/gke-deploy'
+    args:
+      - run
+      - --filename=.
+      - --image=gcr.io/$PROJECT_ID/starwars-api:$COMMIT_SHA
+      - --location=us-central1
+      - --cluster=starwars-cluster
+
+  # Step 6: Deploy da Cloud Function
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'functions'
+      - 'deploy'
+      - 'starwars-api'
+      - '--runtime=python39'
+      - '--trigger-http'
+      - '--allow-unauthenticated'
+      - '--entry-point=starwars_api'
+      - '--source=.'
+      - '--set-env-vars=ENVIRONMENT=production,DEBUG=False'
+      - '--region=us-central1'
+
+timeout: '1800s'
+options:
+  machineType: 'N1_HIGHCPU_8'
+
+onFailure:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'logging'
+      - 'write'
+      - 'starwars-api-build'
+      - 'Build failed for commit $COMMIT_SHA'
