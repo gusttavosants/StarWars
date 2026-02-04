@@ -392,3 +392,10 @@ O projeto segue padrões bem estabelecidos:
 - **Docstrings**: Documentação em classes e métodos públicos
 - **Testes**: Cobertura mínima de 80%
 - **Commits Semânticos**: Histórico claro e rastreável
+
+<img width="8528" height="1509" alt="flowchart - starwars drawio" src="https://github.com/user-attachments/assets/2ebd1aae-1b7a-42e7-af05-29d62e5bfb13" />
+
+https://drive.google.com/file/d/1vNTv4LltPQPqXaBo-oFRt-woDLT_McJL/view?usp=drive_link -- Link para draw.io
+[flowchart - starwars.drawio.xml](https://github.com/user-attachments/files/25070754/flowchart.-.starwars.drawio.xml) -- Link para download em XML
+
+
