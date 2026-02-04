@@ -1,11 +1,22 @@
+import logging
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from src.config.settings import settings
-from src.config.exceptions import StarWarsAPIException
+
 from src.application.dto.filters import ErrorResponse
-from src.presentation.api.routes import characters, planets, starships, films
-import logging
+from src.config.exceptions import StarWarsAPIException
+from src.config.settings import settings
+from src.presentation.api.routes import (
+    advanced_search,
+    analytics,
+    audit,
+    characters,
+    films,
+    planets,
+    recommendations,
+    starships,
+)
 
 logging.basicConfig(level=settings.LOG_LEVEL)
 logger = logging.getLogger(__name__)
@@ -61,6 +72,7 @@ def add_middleware(app: FastAPI) -> None:
 
 def add_routes(app: FastAPI) -> None:
     """Adiciona rotas à aplicação."""
+
     @app.get("/", tags=["Root"])
     async def root():
         return {
@@ -79,10 +91,15 @@ def add_routes(app: FastAPI) -> None:
     app.include_router(planets.router)
     app.include_router(starships.router)
     app.include_router(films.router)
+    app.include_router(advanced_search.router)
+    app.include_router(recommendations.router)
+    app.include_router(analytics.router)
+    app.include_router(audit.router)
 
 
 def add_exception_handlers(app: FastAPI) -> None:
     """Adiciona handlers de exceção à aplicação."""
+
     @app.exception_handler(StarWarsAPIException)
     async def starwars_exception_handler(request: Request, exc: StarWarsAPIException):
         logger.warning(f"Erro esperado: {exc.message}")

@@ -1,7 +1,9 @@
 import logging
 from typing import Optional
+
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer
+
 from src.application.security.jwt_handler import JWTHandler
 from src.config.exceptions import InvalidTokenError
 
@@ -11,7 +13,7 @@ security = HTTPBearer()
 
 
 async def get_current_user(
-    credentials = Depends(security),
+    credentials=Depends(security),
 ) -> str:
     """Obtém o usuário atual a partir do token JWT."""
     token = credentials.credentials
@@ -36,7 +38,7 @@ async def get_current_user(
 
 
 async def get_optional_user(
-    credentials: Optional[object] = Depends(security),
+    credentials: Optional[object] = Depends(HTTPBearer(auto_error=False)),
 ) -> Optional[str]:
     """Obtém o usuário atual de forma opcional."""
     if not credentials:
