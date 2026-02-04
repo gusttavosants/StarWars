@@ -210,7 +210,7 @@ Toda atividade é registrada para fins de segurança e conformidade, permitindo 
 
 O projeto está atualmente deployado em **Render.com**, uma plataforma de hosting gratuita que oferece:
 
-**URL de Produção**: https://starwars-api-xxxxx.onrender.com
+**URL de Produção**: https://starwars-l311.onrender.com
 
 ### Por Que Não GCP Agora?
 
